@@ -20,7 +20,7 @@
    width: 100%
 }
 
-.helper-text.invalid {
+.input-field .helper-text.invalid {
    color: #f44336
 }
 
