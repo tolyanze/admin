@@ -1,7 +1,20 @@
 <template>
   <form class="card auth-card" @submit.prevent="submitHandler">
     <div class="card-content">
-      <span class="card-title">Домашняя бухгалтерия</span>
+      <center><span class="card-title">Арбитраж </span></center>
+      <div class="input-field">
+        <input 
+          id="name" 
+          type="text" 
+          v-model.trim="name"
+          :class="{invalid: ($v.name.$dirty && !$v.name.required) }"
+        />
+        <label for="name">Name</label>  
+        <small 
+          class="helper-text invalid"
+          v-if="$v.name.$dirty && !$v.name.required"
+        >Поле name не должно быть пустым!</small>
+      </div>
       <div class="input-field">
         <input 
           id="email" 
@@ -55,29 +68,42 @@
 
 <script>
 import { email, required, minLength } from 'vuelidate/lib/validators'
+import messages from '@/utils/messages'
+
 
 export default {
   name: 'login',
   data: () => ({
     email: '',
-    password: ''
+    password: '',
+    name: ''
   }),
   validations: {
     email: {email, required},
-    password: {required, minLength: minLength(10) }
+    password: {required, minLength: minLength(6) },
+    name: {required}
+  },
+  mounted() {
+    if (messages[this.$route.query.message]){
+      this.$message(messages[this.$route.query.message])
+    }
   },
   methods: {
-    submitHandler() {
+    async  submitHandler() {
       if (this.$v.$invalid){
         this.$v.$touch()
         return
       }
       const formData = {
         email: this.email,
-        password: this.password
+        password: this.password,
+        name: this.name
       }
-      console.log(formData)
-      this.$router.push('/')
+
+      try {
+        await this.$store.dispatch('login', formData)
+        this.$router.push('/')
+      } catch (e) {}
     }
   }
 };
