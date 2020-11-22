@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import Vuelidate from 'vuelidate'
 import App from './App.vue'
-import './registerServiceWorker'
-import router from './router'
+import router from './router/index'
 import store from './store'
 import messagePlagin from './utils/message.plugin'
+import './registerServiceWorker'
 import 'materialize-css/dist/js/materialize.min'
 
 import firebase from 'firebase/app'
