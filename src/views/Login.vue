@@ -1,7 +1,7 @@
 <template>
   <form class="card auth-card" @submit.prevent="submitHandler">
     <div class="card-content">
-      <center><span class="card-title">Арбитраж </span></center>
+      <center><span class="card-title">Арбитраж new </span></center>
       <div class="input-field">
         <input 
           id="name" 
